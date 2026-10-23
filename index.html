@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Computer Knowledge Quiz - Assignment 10</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts for clean modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-decorations">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <main class="quiz-app-container">
+    <!-- Header -->
+    <header class="quiz-header">
+      <div class="brand-badge">
+        <span class="badge-icon">💻</span>
+        <span class="badge-text">Assignment 10</span>
+      </div>
+      <h1 class="quiz-title">Computer Knowledge <span class="gold-text">Quiz</span></h1>
+      <p class="quiz-subtitle">Test your foundational knowledge across hardware, software, networking, and security.</p>
+    </header>
+
+    <!-- Welcome / Instructions Card -->
+    <section id="welcome-screen" class="card fade-in">
+      <div class="card-hero">
+        <div class="hero-icon-wrapper">
+          <svg class="hero-gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            <circle cx="12" cy="8" r="2"></circle>
+            <path d="M9 13c1.5-1 4.5-1 6 0"></path>
+          </svg>
+        </div>
+        <h2>Ready for the Challenge?</h2>
+        <p class="hero-desc">10 Multiple Choice Questions &bull; 4 Options Each &bull; Instant Results & Review</p>
+      </div>
+
+      <div class="instructions-grid">
+        <div class="info-pill">
+          <span class="info-label">Questions</span>
+          <span class="info-val">10 Items</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-label">Navigation</span>
+          <span class="info-val">Next & Previous</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-label">Scoring</span>
+          <span class="info-val">+1 pt per Correct</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-label">Review</span>
+          <span class="info-val">Detailed Answers</span>
+        </div>
+      </div>
+
+      <div class="action-row center-action">
+        <button id="start-btn" class="btn btn-primary btn-glow">
+          <span>Start Quiz Now</span>
+          <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Active Quiz Card -->
+    <section id="quiz-screen" class="card hidden">
+      <!-- Progress Bar & Indicator -->
+      <div class="quiz-status-bar">
+        <div class="status-top">
+          <span class="question-tracker">
+            Question <span id="current-q-num" class="gold-text">1</span> of <span id="total-q-num">10</span>
+          </span>
+          <span id="answered-counter" class="answered-badge">0 / 10 Answered</span>
+        </div>
+
+        <div class="progress-track" aria-label="Quiz completion progress">
+          <div id="progress-fill" class="progress-fill" style="width: 10%;"></div>
+        </div>
+
+        <!-- Question Pills / Jump Track -->
+        <div id="question-navigator" class="question-navigator" aria-label="Question dots">
+          <!-- Dynamically populated 1 to 10 bubbles -->
+        </div>
+      </div>
+
+      <!-- Question Content -->
+      <div class="question-container">
+        <div class="category-tag" id="question-category">General Computing</div>
+        <h2 id="question-text" class="question-title">Loading question...</h2>
+
+        <!-- 4 Options -->
+        <div id="options-container" class="options-grid" role="radiogroup" aria-labelledby="question-text">
+          <!-- Dynamically populated 4 options -->
+        </div>
+      </div>
+
+      <!-- Navigation Footer -->
+      <footer class="quiz-nav-footer">
+        <button id="prev-btn" class="btn btn-secondary" aria-label="Previous question" disabled>
+          <svg class="btn-icon-left" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+          </svg>
+          <span>Previous</span>
+        </button>
+
+        <div class="selection-status" id="selection-status">
+          <!-- helper note -->
+          Select an option to proceed
+        </div>
+
+        <button id="next-btn" class="btn btn-primary" aria-label="Next question">
+          <span id="next-btn-text">Next</span>
+          <svg class="btn-icon-right" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </footer>
+    </section>
+
+    <!-- Results Screen -->
+    <section id="results-screen" class="card hidden">
+      <div class="results-header">
+        <div class="trophy-badge" id="trophy-badge">
+          🏆
+        </div>
+        <h2 id="result-headline" class="results-title">Quiz Completed!</h2>
+        <p id="result-feedback" class="results-subtitle">Great effort on completing the computer knowledge evaluation.</p>
+      </div>
+
+      <!-- Score Ring & Stats Cards -->
+      <div class="score-summary-grid">
+        <div class="score-card main-score">
+          <div class="score-circle">
+            <svg class="score-svg" viewBox="0 0 120 120">
+              <defs>
+                <linearGradient id="goldLinear" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f7d77b" />
+                  <stop offset="50%" stop-color="#e5b842" />
+                  <stop offset="100%" stop-color="#b8860b" />
+                </linearGradient>
+              </defs>
+              <circle class="score-bg-ring" cx="60" cy="60" r="50" />
+              <circle id="score-fill-ring" class="score-progress-ring" cx="60" cy="60" r="50" />
+            </svg>
+            <div class="score-inner-text">
+              <span id="final-score" class="big-score">0</span>
+              <span class="max-score">/ 10</span>
+            </div>
+          </div>
+          <div class="percentage-badge" id="score-percentage">0%</div>
+          <div class="grade-badge" id="grade-badge">Grade: -</div>
+        </div>
+
+        <div class="stats-breakdown">
+          <div class="stat-box correct-box">
+            <div class="stat-icon-wrap">✓</div>
+            <div class="stat-details">
+              <span class="stat-val" id="correct-count">0</span>
+              <span class="stat-name">Correct</span>
+            </div>
+          </div>
+          <div class="stat-box incorrect-box">
+            <div class="stat-icon-wrap">✗</div>
+            <div class="stat-details">
+              <span class="stat-val" id="incorrect-count">0</span>
+              <span class="stat-name">Incorrect</span>
+            </div>
+          </div>
+          <div class="stat-box unanswered-box">
+            <div class="stat-icon-wrap">○</div>
+            <div class="stat-details">
+              <span class="stat-val" id="unanswered-count">0</span>
+              <span class="stat-name">Unanswered</span>
+            </div>
+          </div>
+          <div class="stat-box accuracy-box">
+            <div class="stat-icon-wrap">🎯</div>
+            <div class="stat-details">
+              <span class="stat-val" id="accuracy-rate">0%</span>
+              <span class="stat-name">Accuracy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="results-actions">
+        <button id="restart-btn" class="btn btn-primary btn-glow">
+          <svg class="btn-icon-left" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+          </svg>
+          <span>Restart Quiz</span>
+        </button>
+        <button id="toggle-review-btn" class="btn btn-secondary">
+          <span id="review-btn-text">View Detailed Review</span>
+          <svg id="review-chevron" class="btn-icon-right" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Detailed Review Accordion Section -->
+      <section id="review-section" class="review-section hidden">
+        <div class="review-header">
+          <h3>Question-by-Question Review</h3>
+          <p>Review your selected answers against the correct solutions with brief explanations.</p>
+        </div>
+        <div id="review-list" class="review-list">
+          <!-- Dynamically populated review cards -->
+        </div>
+      </section>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>10th Assignment &bull; Computer Science & Information Technology &bull; Designed in Dark Navy & Gold</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
